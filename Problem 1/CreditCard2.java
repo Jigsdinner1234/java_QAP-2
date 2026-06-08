@@ -71,4 +71,51 @@ public class CreditCard2 {
         balance = balance.subtract(amount);
         System.out.println("Payment: " + amount);
     }
+
+    public static class Money implements Comparable<Money> {
+        private final long cents;
+
+        public Money(int dollars) {
+            this.cents = dollars * 100L;
+        }
+
+        public Money(Money other) {
+            this.cents = other.cents;
+        }
+
+        private Money(long cents) {
+            this.cents = cents;
+        }
+
+        public Money add(Money other) {
+            return new Money(this.cents + other.cents);
+        }
+
+        public Money subtract(Money other) {
+            return new Money(this.cents - other.cents);
+        }
+
+        @Override
+        public int compareTo(Money other) {
+            return Long.compare(this.cents, other.cents);
+        }
+
+        @Override
+        public String toString() {
+            return String.format("$%.2f", cents / 100.0);
+        }
+    }
+
+    public static class Person {
+        private final String name;
+
+        public Person(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
+    }
 }
